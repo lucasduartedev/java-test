@@ -46,16 +46,28 @@ public class Conta {
         }
         this.saldo += valor;
     }
-
+    
     public void sacar(Double valor) {
-        if(valor < 0.0) {
+        if(!this.ativo) {
+            throw new RuntimeException("Conta desativada não pode realizar Saque");
+        } else if(valor < 0.0) {
             throw new RuntimeException("Saque não pode ter valor negativo.");
         }
         this.saldo -= valor;
     }
 
-    public void tranferir() {
-
+    public void tranferir(Conta conta, Double valor) {
+        if(conta == null || valor == null) {
+            throw new RuntimeException("Não autorizado, parâmetros nulos.");
+        } else if(!this.ativo) {
+            throw new RuntimeException("Não autorizado, conta origem está desativada.");
+        } else if(!conta.ativo) {
+            throw new RuntimeException("Não autorizado, conta destino está desativada.");
+        } else if(valor < 0.0) {
+            throw new RuntimeException("Transferência com valor negativo não autorizado.");
+        }
+        this.saldo -= valor;
+        conta.saldo += valor;
     }
 
     public void ativarConta() {
