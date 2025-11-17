@@ -3,6 +3,7 @@ package com.fundamentos.models.banco;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.val;
 
 @Getter
 @Setter
@@ -28,13 +29,13 @@ public class Conta {
 
     // * Métodos privados
 
-    // private void aumentarSaldo(Double valor) {
+    private void aumentarSaldo(Double valor) {
+        this.saldo += valor;
+    }
 
-    // }
-
-    // private void diminuirSalto(Double valor) {
-
-    // }
+    private void diminuirSalto(Double valor) {
+        this.saldo -= valor;
+    }
 
     // * Métodos públicos
 
@@ -44,7 +45,8 @@ public class Conta {
         } else if(valor < 0.0) {
             throw new RuntimeException("Depósito não pode ter valor negativo.");
         }
-        this.saldo += valor;
+        // this.saldo += valor;
+        this.aumentarSaldo(valor);
     }
     
     public void sacar(Double valor) {
@@ -53,7 +55,8 @@ public class Conta {
         } else if(valor < 0.0) {
             throw new RuntimeException("Saque não pode ter valor negativo.");
         }
-        this.saldo -= valor;
+        // this.saldo -= valor;
+        this.diminuirSalto(valor);
     }
 
     public void tranferir(Conta conta, Double valor) {
@@ -66,12 +69,14 @@ public class Conta {
         } else if(valor < 0.0) {
             throw new RuntimeException("Transferência com valor negativo não autorizado.");
         }
-        this.saldo -= valor;
-        conta.saldo += valor;
+        // this.saldo -= valor;
+        this.diminuirSalto(valor);
+        // conta.saldo += valor;
+        conta.aumentarSaldo(valor);
     }
 
     public void ativarConta() {
-
+        
     }
 
     public void desativarConta() {
