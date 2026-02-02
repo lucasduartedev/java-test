@@ -151,9 +151,26 @@ public class ContaTest {
         }, "Não autorizado, valor da transferência nula.");
     }
 
+    Conta contaTransferencia03 = new Conta(7L, "003T", "1234T");
     Conta contaTransferencia_Desativada03 = new Conta(7L, "003T", "1234T");
     Conta contaTransferencia_DestinoDesativada04 = new Conta(8L, "003T", "1234T");
 
+    @Test
+    void deveRejeitarTransferenciaComContaOrigemDesativada() {
+        contaTransferencia_Desativada03.depositar(1000.0);
+        contaTransferencia03.desativarConta();
+        assertThrows( RuntimeException.class, () -> {
+            contaTransferencia_Desativada03.tranferir(contaTransferencia03, 150.0);
+        }, "Não autorizado, conta origem não autorizada a realizar esse tipo de transação.");
+    }
 
+    @Test
+    void deveRejeitarTransferenciaComContaDestinoDesativada() {
+        contaTransferencia_Desativada03.depositar(1000.0);
+        contaTransferencia_DestinoDesativada04.desativarConta();
+        assertThrows( RuntimeException.class, () -> {
+            contaTransferencia_Desativada03.tranferir(contaTransferencia_DestinoDesativada04, 450.0);
+        }, "Não autorizado, conta destino não autorizada a receber esse tipo de transação.");
+    }
     
 }
