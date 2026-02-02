@@ -3,7 +3,6 @@ package com.fundamentos.models.banco;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.val;
 
 @Getter
 @Setter
@@ -62,9 +61,9 @@ public class Conta {
     public void tranferir(Conta conta, Double valor) {
         if(conta == null || valor == null) {
             throw new RuntimeException("Não autorizado, parâmetros nulos.");
-        } else if(!this.ativo) {
+        } else if(this.ativo == false) {
             throw new RuntimeException("Não autorizado, conta origem está desativada.");
-        } else if(!conta.ativo) {
+        } else if(conta.ativo == false) {
             throw new RuntimeException("Não autorizado, conta destino está desativada.");
         } else if(valor < 0.0) {
             throw new RuntimeException("Transferência com valor negativo não autorizado.");
@@ -76,11 +75,11 @@ public class Conta {
     }
 
     public void ativarConta() {
-        
+        this.ativo = true;
     }
-
+    
     public void desativarConta() {
-
+        this.ativo = false;
     }
 
 }
