@@ -3,9 +3,11 @@ package com.fundamentos.models.ArraysTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 public class ArrayCompareTest {
 
@@ -18,6 +20,17 @@ public class ArrayCompareTest {
         Arrays.sort(numbers);
 
         assertArrayEquals(expectedArray, numbers);
+    }
+
+    @Test
+    @Timeout(value = 1500, unit = TimeUnit.MILLISECONDS)
+    void testSortPerformance() {
+        int[] numbers = {5, 1, 9, 7, 8};
+        for (int i = 0; i < 100000000; i++) {
+            numbers[0] = i;
+            Arrays.sort(numbers);
+        }
+
     }
     
 }
