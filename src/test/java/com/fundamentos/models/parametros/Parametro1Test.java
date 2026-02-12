@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.fundamentos.models.matematica.Calculadora;
@@ -26,8 +27,9 @@ public class Parametro1Test {
     @MethodSource("testDivisaoInputParameters")
     void testaDivisaoDeDoisNumeros(double n1, double n2, double expectedN) {
         Double actual = calculadora.dividir(n1, n2);
+        Double delta = 2D;
 
-        assertEquals(expectedN, actual, 2D);
+        assertEquals(expectedN, actual, delta);
     }
 
     public static Stream<Arguments> testDivisaoInputParameters() {
@@ -37,5 +39,22 @@ public class Parametro1Test {
             Arguments.of(18.3D, 3.1D, 5.90D)
         );
     }
+
+    @DisplayName("Testa a divisão entre dois núemro com CSV String")
+    @ParameterizedTest
+    @CsvSource({
+        "9, 3, 3",
+        "10, 2, 5",
+        "15, 3, 5",
+        "20, 3, 6.66666"
+    })
+    void testaDivisaoDeDoisNumerosComCsvString(double n1, double n2, double expectedN) {
+        Double actual = calculadora.dividir(n1, n2);
+
+        Double delta = 2D;
+
+        assertEquals(expectedN, actual, delta);
+    }
+
 
 }
