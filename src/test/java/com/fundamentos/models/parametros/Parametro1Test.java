@@ -1,6 +1,7 @@
 package com.fundamentos.models.parametros;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.stream.Stream;
 
@@ -10,6 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.fundamentos.models.matematica.Calculadora;
 
@@ -54,6 +56,13 @@ public class Parametro1Test {
         Double delta = 2D;
 
         assertEquals(expectedN, actual, delta);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Senna", "Formula", "Futebol"})
+    void testComValueSource(String nome) {
+        System.out.println(nome);
+        assertNotNull(nome);
     }
 
 
